@@ -322,10 +322,12 @@ body {
 }
 
 .profile-name {
-  font-family: var(--font-display);
-  font-size: 2.6rem;
-  letter-spacing: 0.1em;
+  font-family: var(--font-body);
+  font-size: 3rem;
+  letter-spacing: 2px;
+  text-transform: lowercase;
   line-height: 1;
+  font-weight: 700;
 }
 
 .profile-handle {
@@ -334,10 +336,25 @@ body {
   letter-spacing: 0.04em;
 }
 
+/* Styling untuk Verified Badge dengan bagian dalam putih */
+.verified-badge {
+  color: #1DA1F2; /* Warna biru untuk ikon centang dan lingkaran luarnya */
+  background-color: var(--white); /* Memberikan warna putih di bagian dalam ikon */
+  border-radius: 50%; /* Membuat latar belakang putih berbentuk bulat sempurna */
+  
+  margin-left: 4px; /* Memberi jarak sedikit dari teks username */
+  font-size: 0.9em; /* Menyesuaikan ukuran ikon dengan teks */
+  vertical-align: middle; /* Memastikan posisi ikon sejajar dengan teks */
+  
+  /* Opsional: Mengatasi glitch visual kecil agar warna putih tidak bocor keluar */
+  display: inline-content;
+  box-shadow: 0 0 0 1px #1DA1F2; 
+}
+
 /* Bio */
 .profile-bio {
-  font-size: 0.97rem;
-  line-height: 1.72;
+  font-size: 0.85rem;
+  line-height: 1.26;
   color: var(--gray-5);
   padding-left: 0;
 }
