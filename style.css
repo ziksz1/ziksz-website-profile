@@ -313,6 +313,7 @@ body {
   background: var(--gray-2);
   flex-shrink: 0;
 }
+
 /* Role tags */
 .role-tags {
   display: flex;
