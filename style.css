@@ -347,11 +347,6 @@ body {
   font-weight: 600;
 }
 
-.bball {
-  display: inline-block;
-  animation: bounce 1.6s ease-in-out infinite;
-}
-
 @keyframes bounce {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-8px); }
