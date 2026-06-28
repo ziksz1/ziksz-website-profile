@@ -175,8 +175,8 @@
 })();
 
 // ============================================================
-  //  DISCORD PROFILE FETCHING (Lanyard API)
-  // ============================================================
+//  PASTE KODE DISCORD PROFILE & STATUS DI SINI (Paling Bawah)
+// ============================================================
   const discordID = '1127233313740955729'; 
   const lanyardAPI = `https://api.lanyard.rest/v1/users/${discordID}`;
 
@@ -186,7 +186,7 @@
       if (data.success) {
         const user = data.data.discord_user;
         
-        // --- 1. Mengatur Foto Profil Utama ---
+        // 1. Atur Foto Utama
         const avatarUrl = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=128`;
         const imgEl = document.getElementById('discord-pfp');
         const fallbackEl = document.getElementById('avatar-fallback');
@@ -195,25 +195,33 @@
         imgEl.style.display = 'block';
         fallbackEl.style.display = 'none';
 
-        // --- 2. Mengatur Avatar Decoration (Jika Sedang Dipakai) ---
+        // 2. Atur Avatar Decoration
         const decoEl = document.getElementById('discord-deco');
-        
-        // Mengecek apakah data hiasan tersedia di profilmu
         if (user.avatar_decoration_data && user.avatar_decoration_data.asset) {
-          // Menyusun link khusus untuk file hiasan Discord
           const decoUrl = `https://cdn.discordapp.com/avatar-decoration-presets/${user.avatar_decoration_data.asset}.png?size=128`;
-          
           decoEl.src = decoUrl;
-          decoEl.style.display = 'block'; // Tampilkan hiasan
+          decoEl.style.display = 'block';
         } else {
-          // Sembunyikan jika tidak pakai hiasan
-          decoEl.style.display = 'none'; 
+          decoEl.style.display = 'none';
         }
+
+        // 3. Atur Titik Status
+        const statusEl = document.getElementById('discord-status');
+        const currentStatus = data.data.discord_status;
+        
+        // KITA TAMBAHKAN BARIS INI UNTUK MELACAK DATA ASLI:
+        console.log("Status asli dari Lanyard:", currentStatus); 
+        
+        statusEl.className = 'status-dot'; 
+        statusEl.classList.add(currentStatus); 
+        statusEl.style.display = 'flex';
         
       } else {
-        console.warn('Gagal memuat profil Discord. Pastikan kamu sudah join server Lanyard (discord.gg/lanyard).');
+        console.warn('Gagal memuat profil Discord.');
       }
     })
     .catch(error => {
-      console.error('Terjadi kesalahan saat memuat foto Discord:', error);
+      console.error('Terjadi kesalahan Lanyard API:', error);
     });
+  // ============================================================
+;
