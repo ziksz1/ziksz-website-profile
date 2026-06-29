@@ -1156,3 +1156,56 @@ body.loaded .app {
 body.loaded .grid-bg {
   opacity: 1; /* Huruf melayang ziksz mulai menampakkan pendarannya */
 }
+
+/* ============================================================
+   TOPBAR SYSTEM: LOGO IMAGE ENLARGEMENT & ALIGNMENT
+============================================================ */
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Memastikan logo baru yang lebih besar tetap lurus di sumbu tengah */
+  height: var(--topbar-h);
+  padding: 0 var(--page-pad);
+}
+
+/* Container pembungkus gambar logo (UKURAN DISETIKAN LEBIH BESAR) */
+.topbar-logo-wrap {
+  display: flex;
+  align-items: center;
+  height: 24px; /* Dinaikkan dari 20px ke 24px agar logo tampak lebih jelas dan besar */
+}
+
+/* Gambar Logo .png */
+.topbar-img {
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+  opacity: 0.60; /* Sedikit dinaikkan dari 0.65 ke 0.75 agar visual logo lebih tegas */
+  transition: opacity var(--transition);
+  
+  /* Memperkuat bayangan hitam tipis di belakang logo agar bentuknya makin kontras */
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.4)); 
+}
+
+/* Teks Hak Cipta & Lokasi di Kanan (Disesuaikan secara Otomatis) */
+.topbar-loc {
+  font-family: var(--font-body);
+  
+  /* Ukuran disesuaikan ke 0.85rem (~13.6px) agar mengimbangi besarnya logo 24px 
+     dan menjaga harmoni layout horizontal */
+  font-size: 0.7rem; 
+  
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--white);
+  opacity: 0.60; /* Opacity disamakan 75% agar keseimbangan warna kiri-kanan tetap solid */
+  transition: opacity var(--transition);
+}
+
+/* --- HOVER INTERACTION --- */
+/* Saat area header atas didekati mouse, logo dan teks akan menyala terang 100% bersamaan */
+.topbar:hover .topbar-img,
+.topbar:hover .topbar-loc {
+  opacity: 1;
+}
