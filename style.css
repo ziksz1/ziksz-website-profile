@@ -159,7 +159,7 @@ body {
 }
 
 /* ============================================================
-   PAGE EYEBROW & TITLE (Projects / Socials)
+   PAGE EYEBROW & TITLE (Projects / Socials / Gallery / Blog)
 ============================================================ */
 .page-eyebrow {
   font-size: 0.7rem;
@@ -172,9 +172,9 @@ body {
 
 .page-title {
   font-family: var(--font-display);
-  font-size: clamp(2.8rem, 10vw, 4rem);
+  font-size: clamp(5rem, 10vw, 4rem);
   letter-spacing: 0.02em;
-  line-height: 1;
+  line-height: 1.2;
   margin-bottom: 2rem;
   color: var(--white);
 }
@@ -1231,5 +1231,113 @@ body.loaded .grid-bg {
   .projects-list {
     grid-template-columns: repeat(1, 1fr) !important;
     gap: 1rem;
+  }
+}
+
+/* ============================================================
+   NAVIGASI FILTER GALERI (FOTO & VIDEO)
+============================================================ */
+
+.gallery-filter-nav {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* ============================================================
+   NAVIGASI FILTER GALERI (MENYAMBUNG & DI TENGAH)
+============================================================ */
+
+.gallery-filter-nav {
+  display: flex;
+  justify-content: center; /* Membuat grup tombol berada di tengah */
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+/* Membuat bungkus tombol agar bersatu/menyambung */
+.gallery-filter-group {
+  display: flex;
+  background: var(--gray-1);
+  border: 1px solid var(--gray-3);
+  border-radius: 30px; /* Sudut membulat di ujung luar saja */
+  padding: 4px; /* Jarak aman antara border luar dan tombol */
+  overflow: hidden;
+}
+
+.gallery-filter-btn {
+  background: transparent; /* Transparan karena background ikut kontainer utama */
+  border: none; /* Hapus border bawaan agar tidak sekat-sekat kaku */
+  color: var(--gray-5);
+  padding: 0.6rem 1.5rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 25px; /* Membuat background aktif berbentuk kapsul di dalam */
+  transition: color var(--transition), background var(--transition);
+}
+
+.gallery-filter-btn:hover {
+  color: var(--white);
+}
+
+/* Style saat tombol aktif (Selected) */
+.gallery-filter-btn.active {
+  background: var(--white) !important;
+  color: var(--black) !important;
+}
+
+.gallery-filter-btn {
+  background: var(--gray-1);
+  border: 1px solid var(--gray-3);
+  color: var(--gray-5);
+  padding: 0.5rem 1.25rem;
+  border-radius: 20px; /* Membuat tombol berbentuk kapsul */
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
+}
+
+.gallery-filter-btn:hover {
+  border-color: var(--gray-4);
+  color: var(--white);
+}
+
+.gallery-filter-btn.active {
+  background: var(--white);
+  color: var(--black);
+  border-color: var(--white);
+}
+
+/* Pengaturan Khusus Elemen Video di dalam Grid */
+.gallery-item video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Agar video memenuhi kotak persegi tanpa gepeng */
+  background: #000;
+}
+
+/* Animasi Sembunyikan & Tampilkan saat Di-filter */
+.gallery-item.hide {
+  display: none !important;
+}
+
+.gallery-item.fade-in {
+  animation: galleryFade 0.3s ease forwards;
+}
+
+@keyframes galleryFade {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }

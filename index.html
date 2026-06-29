@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ziksz</title>
-  <link rel="icon" type="image/png" href="assets/logo.png" />
+  <link rel="icon" type="image/png" href="assets/logo/z.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -23,7 +23,7 @@
           <circle id="progress-bar" class="progress-ring__bar" stroke="var(--white)" stroke-width="4" fill="transparent" r="60" cx="70" cy="70"/>
         </svg>
         <div class="loading-logo">
-          <img src="assets/logo.png" alt="Logo Ziks" id="loading-logo-img" />
+          <img src="assets/logo/z.png" alt="Logo Ziks" id="loading-logo-img" />
         </div>
       </div>
       <div id="loading-text" class="loading-text">0%</div>
@@ -43,7 +43,7 @@
 
     <header class="topbar">
       <div class="topbar-logo-wrap">
-        <img src="assets/logo.png" alt="Ziks Logo" class="topbar-img" />
+        <img src="assets/logo/z.png" alt="Ziks Logo" class="topbar-img" />
       </div>
       <span class="topbar-loc">&copy; 2026 ziksz_, Riau, Indonesia</span>
     </header>
@@ -51,7 +51,28 @@
     <!-- PAGE VIEWPORT -->
     <main class="viewport">
 
-      <!-- ====== PAGE: PROJECTS (left) ====== -->
+      <!-- ====== PAGE: BLOG ARTICLES (left 2) ====== -->
+      <section class="page" id="page-blog">
+        <div class="page-inner">
+          <p class="page-eyebrow">My Thoughts</p>
+          <h2 class="page-title">Blog Articles.</h2>
+
+          <div class="blog-list">
+
+            <article class="blog-card coming-soon">
+              <div class="blog-meta">
+                <span class="blog-num">01</span>
+                <span class="blog-tag">Soon</span>
+              </div>
+              <h3 class="blog-name">Next Blog Post</h3>
+              <p class="blog-desc">Stay tuned.</p>
+            </article>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ====== PAGE: PROJECTS (left 1) ====== -->
       <section class="page" id="page-projects">
         <div class="page-inner">
           <p class="page-eyebrow">Things I Built</p>
@@ -72,15 +93,6 @@
               <span class="project-link muted">
                 You're Here Now. <i class="fa-solid fa-check"></i>
               </span>
-            </article>
-
-            <article class="project-card coming-soon">
-              <div class="project-meta">
-                <span class="project-num">02</span>
-                <span class="project-tag">Soon</span>
-              </div>
-              <h3 class="project-name">Next Project</h3>
-              <p class="project-desc">Stay tuned.</p>
             </article>
 
             <article class="project-card coming-soon">
@@ -154,7 +166,7 @@
         </div>
       </section>
 
-      <!-- ====== PAGE: SOCIALS (right) ====== -->
+      <!-- ====== PAGE: SOCIALS (right 1) ====== -->
       <section class="page" id="page-socials">
         <div class="page-inner">
           <p class="page-eyebrow">Find Me Here</p>
@@ -206,14 +218,47 @@
         </div>
       </section>
 
+      <!-- ====== PAGE: GALLERY (right 2) ====== -->
+      <section class="page" id="page-gallery">
+  <div class="page-inner">
+    <h2 class="page-title">Gallery.</h2>
+    
+    <div class="gallery-filter-nav">
+      <button class="gallery-filter-btn active" data-filter="all">All</button>
+      <button class="gallery-filter-btn" data-filter="photo">Photos</button>
+      <button class="gallery-filter-btn" data-filter="video">Videos</button>
+    </div>
+    
+    <div class="gallery-grid">
+      
+      <div class="gallery-item type-photo">
+        <img src="assets/logo/z.png" alt="Gallery Photo 1" loading="lazy">
+      </div>
+
+      <div class="gallery-item type-video">
+        <video src="assets/video1.mp4" controls preload="metadata"></video>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
     </main>
 
     <!-- DOCK NAV (MacOS style) -->
     <footer class="dock-wrap">
       <nav class="dock" role="navigation" aria-label="Main navigation">
+
+        <button class="dock-item" data-page="blog" aria-label="Blog">
+         <div class="dock-icon">
+          <i class="fa-solid fa-pen-nib"></i></div>
+         <span class="dock-label">Blog</span>
+         <span class="dock-dot"></span>
+        </button>
+
         <button class="dock-item" data-page="projects" aria-label="Projects">
           <div class="dock-icon">
-            <i class="fa-solid fa-folder-open"></i>
+            <i class="fa-solid fa-folder"></i>
           </div>
           <span class="dock-label">Projects</span>
           <span class="dock-dot"></span>
@@ -221,7 +266,7 @@
 
         <button class="dock-item active" data-page="profile" aria-label="Profile">
           <div class="dock-icon dock-icon--home">
-            <span class="dock-initials">Z</span>
+            <i class="fa-solid fa-user"></i>
           </div>
           <span class="dock-label">Profile</span>
           <span class="dock-dot"></span>
@@ -234,6 +279,13 @@
           <span class="dock-label">Socials</span>
           <span class="dock-dot"></span>
         </button>
+
+        <button class="dock-item" data-page="gallery" aria-label="Gallery">
+         <div class="dock-icon"><i class="fa-solid fa-images"></i></div>
+         <span class="dock-label">Gallery</span>
+        <span class="dock-dot"></span>
+        </button>
+
       </nav>
     </footer>
 

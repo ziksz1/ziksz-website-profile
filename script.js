@@ -72,7 +72,7 @@
   }
 
   // Page order (left → right)
-  const PAGE_ORDER = ['projects', 'profile', 'socials'];
+  const PAGE_ORDER = ['blog', 'projects', 'profile', 'socials', 'gallery'];
 
   // ---- State ----
   let currentPage = 'profile';
@@ -396,3 +396,39 @@ projectCards.forEach(card => {
       }
     }, 3000);
   });
+
+// --- FITUR FILTER GALERI (FOTO & VIDEO) ---
+document.addEventListener('DOMContentLoaded', () => {
+  const filterButtons = document.querySelectorAll('.gallery-filter-btn');
+  const galleryItems = document.querySelectorAll('.gallery-item');
+
+  filterButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      // 1. Ubah status tombol aktif
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      this.classList.add('active');
+
+      // 2. Ambil kategori filter yang dipilih (all, photo, atau video)
+      const filterValue = this.getAttribute('data-filter');
+
+      // 3. Saring item galeri
+      galleryItems.forEach(item => {
+        // Hapus class animasi sebelumnya
+        item.classList.remove('fade-in');
+
+        if (filterValue === 'all') {
+          item.classList.remove('hide');
+          item.classList.add('fade-in');
+        } else {
+          // Cek apakah item memiliki class target (e.g., 'type-photo' atau 'type-video')
+          if (item.classList.contains(`type-${filterValue}`)) {
+            item.classList.remove('hide');
+            item.classList.add('fade-in');
+          } else {
+            item.classList.add('hide');
+          }
+        }
+      });
+    });
+  });
+});
