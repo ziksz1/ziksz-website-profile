@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ziksz</title>
-  <link rel="icon" type="image/png" href="assets/domain-logo.png" />
+  <link rel="icon" type="image/png" href="assets/logo.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -14,6 +14,21 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-content">
+      <div class="loading-wrapper">
+        <svg class="progress-ring" width="140" height="140">
+          <circle class="progress-ring__background" stroke="rgba(255, 255, 255, 0.03)" stroke-width="3" fill="transparent" r="60" cx="70" cy="70"/>
+          <circle id="progress-bar" class="progress-ring__bar" stroke="var(--white)" stroke-width="4" fill="transparent" r="60" cx="70" cy="70"/>
+        </svg>
+        <div class="loading-logo">
+          <img src="assets/logo.png" alt="Logo Ziks" id="loading-logo-img" />
+        </div>
+      </div>
+      <div id="loading-text" class="loading-text">0%</div>
+    </div>
+  </div>
 
   <!-- Grid Background -->
   <div class="grid-bg" aria-hidden="true"></div>
@@ -29,7 +44,7 @@
     <!-- TOP HEADER — logo only -->
     <header class="topbar">
       <span class="topbar-logo">z</span>
-      <span class="topbar-loc">Riau, Indonesia</span>
+      <span class="topbar-loc">&copy; 2026 ziksz_, Riau, Indonesia</span>
     </header>
 
     <!-- PAGE VIEWPORT -->

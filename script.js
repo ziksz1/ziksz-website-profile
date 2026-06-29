@@ -144,39 +144,56 @@
     }, { once: true });
   }
 
+// ============================================================
+  //  Fungsi Pendukung Animasi Bounce ala MacOS
+  // ============================================================
+  function triggerDockBounce(btnElement) {
+    if (!btnElement) return;
+    
+    // Hapus class jika animasi sebelumnya masih berjalan (reset state)
+    btnElement.classList.remove('bounce-active');
+    void btnElement.offsetWidth; // Trigger reflow untuk me-restart animasi CSS
+    
+    // Tambahkan class animasi
+    btnElement.classList.add('bounce-active');
+    
+    // Bersihkan class setelah animasi selesai agar bisa diklik kembali
+    btnElement.addEventListener('animationend', () => {
+      btnElement.classList.remove('bounce-active');
+    }, { once: true });
+  }
+
+  // ---- Bind dock buttons + ripple + sound + macOS bounce ----
   document.querySelectorAll('.dock-item[data-page]').forEach(btn => {
     btn.addEventListener('click', () => {
+      // 1. Jalankan audio klik bertenaga bawaanmu
       playClick('dock');
 
+      // 2. Efek Ripple bawaan
       const ripple = document.createElement('span');
       ripple.className = 'ripple';
       btn.appendChild(ripple);
       ripple.addEventListener('animationend', () => ripple.remove());
 
-      // JALANKAN ANIMASI BOUNCE SAAT DIKLIK
+      // 3. TRIGGER MACOS BOUNCE PADA TOMBOL YANG DIKLIK
       triggerDockBounce(btn);
 
+      // 4. Pindah Halaman
       goTo(btn.dataset.page);
     });
   });
 
-  // ---- Project cards — clickable + sound ----
-  document.querySelectorAll('.project-card[data-href]').forEach(card => {
-    card.addEventListener('click', () => {
-      playClick('card');
-      const url = card.dataset.href;
-      if (url) window.open(url, '_blank', 'noopener,noreferrer');
-    });
-  });
-
-  // ---- Generic click sound on interactive elements ----
-  const clickableSelectors = 'a[href], .role-tag, .social-row';
-  document.querySelectorAll(clickableSelectors).forEach(el => {
-    el.addEventListener('click', () => playClick('ui'));
-  });
-
   // ---- Initial state ----
   updateControls(currentPage);
+
+  // KUNCI UTAMA: Jalankan animasi pantulan macOS pada tab aktif saat web pertama kali dibuka!
+  const initialActiveBtn = tabBtns[currentPage];
+  if (initialActiveBtn) {
+    // Berikan sedikit delay 300ms agar halaman selesai rendering sepenuhnya sebelum memantul
+    setTimeout(() => {
+      triggerDockBounce(initialActiveBtn);
+    }, 300);
+  }
 
   // ============================================================
   //  Swipe gesture (touch)
@@ -307,3 +324,58 @@
     });
   // ============================================================
 ;
+
+// ============================================================
+  //  SEQUENTIAL LOADING SCREEN & ENTER INTERACTION LOGIC
+  // ============================================================
+  document.addEventListener('DOMContentLoaded', () => {
+    const loader = document.getElementById('loading-screen');
+    const loadText = document.getElementById('loading-text');
+    const progressBar = document.getElementById('progress-bar');
+    
+    if (!loader || !loadText || !progressBar) return;
+
+    const radius = progressBar.r.baseVal.value;
+    const circumference = 2 * Math.PI * radius;
+
+    progressBar.style.strokeDasharray = `${circumference} ${circumference}`;
+    progressBar.style.strokeDashoffset = circumference;
+
+    let progress = 0;
+    const intervalTime = 12; 
+
+    const progressInterval = setInterval(() => {
+      progress++;
+      loadText.textContent = `${progress}%`;
+
+      const offset = circumference - (progress / 100) * circumference;
+      progressBar.style.strokeDashoffset = offset;
+
+      if (progress >= 100) {
+        clearInterval(progressInterval);
+        
+        setTimeout(() => {
+          // 1. Sembunyikan layar loading hitam
+          loader.classList.add('fade-out');
+          
+          // 2. TIMING EMAS: Beri jeda 150ms agar layar hitam memudar dulu,
+          // lalu munculkan layout website naik ke atas secara dramatis
+          setTimeout(() => {
+            document.body.classList.add('loaded');
+          }, 150);
+          
+        }, 250);
+      }
+    }, intervalTime);
+
+    // Fail-safe darurat 3 detik jika browser lag
+    setTimeout(() => {
+      if (!loader.classList.contains('fade-out')) {
+        clearInterval(progressInterval);
+        loadText.textContent = `100%`;
+        progressBar.style.strokeDashoffset = 0;
+        loader.classList.add('fade-out');
+        document.body.classList.add('loaded');
+      }
+    }, 3000);
+  });
