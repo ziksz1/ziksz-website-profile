@@ -1,10 +1,75 @@
 /* ============================================================
    ZIKS WEBSITE — script.js
-   Handles: page navigation, cursor, swipe gestures
+   Handles: page navigation, cursor, swipe gestures, click sound
 ============================================================ */
 
 (function () {
   'use strict';
+
+  // ============================================================
+  //  Click Sound — Web Audio API (no external file needed)
+  // ============================================================
+  let audioCtx = null;
+
+  function getAudioCtx() {
+    if (!audioCtx) {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    return audioCtx;
+  }
+
+  function playClick(type = 'ui') {
+    try {
+      const ctx = getAudioCtx();
+
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      const filter = ctx.createBiquadFilter();
+
+      osc.connect(filter);
+      filter.connect(gain);
+      gain.connect(ctx.destination);
+
+      filter.type = 'bandpass';
+
+      if (type === 'dock') {
+        // Dock tap — punchy mid click
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(820, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(260, ctx.currentTime + 0.08);
+        filter.frequency.value = 1200;
+        filter.Q.value = 1.5;
+        gain.gain.setValueAtTime(0.18, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.1);
+        osc.start(ctx.currentTime);
+        osc.stop(ctx.currentTime + 0.1);
+      } else if (type === 'card') {
+        // Card open — deeper, satisfying thud
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(380, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(120, ctx.currentTime + 0.12);
+        filter.frequency.value = 600;
+        filter.Q.value = 1;
+        gain.gain.setValueAtTime(0.22, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.14);
+        osc.start(ctx.currentTime);
+        osc.stop(ctx.currentTime + 0.14);
+      } else {
+        // Generic UI click — short bright tick
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(1200, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(600, ctx.currentTime + 0.05);
+        filter.frequency.value = 2000;
+        filter.Q.value = 2;
+        gain.gain.setValueAtTime(0.12, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.06);
+        osc.start(ctx.currentTime);
+        osc.stop(ctx.currentTime + 0.06);
+      }
+    } catch (e) {
+      // Silently fail if audio not supported
+    }
+  }
 
   // Page order (left → right)
   const PAGE_ORDER = ['projects', 'profile', 'socials'];
@@ -20,7 +85,7 @@
   PAGE_ORDER.forEach(id => {
     pages[id]   = document.getElementById(`page-${id}`);
     tabBtns[id] = document.querySelector(`.dock-item[data-page="${id}"]`);
-    dotBtns[id] = null; // dot nav removed, handled by dock-item itself
+    dotBtns[id] = null;
   });
 
   // ============================================================
@@ -36,19 +101,15 @@
     const outPage = pages[currentPage];
     const inPage  = pages[targetId];
 
-    // Remove active from outgoing
     outPage.classList.remove('active');
-    // Slide out to the opposite direction
     outPage.style.transform = goRight ? 'translateX(-60px)' : 'translateX(60px)';
     outPage.style.opacity   = '0';
     outPage.style.pointerEvents = 'none';
 
-    // Position incoming page off-screen on the correct side
     inPage.style.transition = 'none';
     inPage.style.transform  = goRight ? 'translateX(60px)' : 'translateX(-60px)';
     inPage.style.opacity    = '0';
 
-    // Force reflow so the initial position is applied before the transition
     void inPage.offsetWidth;
 
     inPage.style.transition = '';
@@ -57,12 +118,8 @@
     inPage.style.pointerEvents = 'auto';
     inPage.classList.add('active');
 
-    // Scroll new page to top
     inPage.scrollTop = 0;
-
-    // Update controls
     updateControls(targetId);
-
     currentPage = targetId;
   }
 
@@ -75,12 +132,48 @@
     });
   }
 
-  // ---- Bind dock buttons ----
+  // ---- Bind dock buttons + ripple + sound ----
+  function triggerDockBounce(btnElement) {
+    if (!btnElement) return;
+    btnElement.classList.remove('bounce-active');
+    void btnElement.offsetWidth; // Hack CSS Reflow untuk me-restart animasi instant
+    btnElement.classList.add('bounce-active');
+    
+    btnElement.addEventListener('animationend', () => {
+      btnElement.classList.remove('bounce-active');
+    }, { once: true });
+  }
+
   document.querySelectorAll('.dock-item[data-page]').forEach(btn => {
-    btn.addEventListener('click', () => goTo(btn.dataset.page));
+    btn.addEventListener('click', () => {
+      playClick('dock');
+
+      const ripple = document.createElement('span');
+      ripple.className = 'ripple';
+      btn.appendChild(ripple);
+      ripple.addEventListener('animationend', () => ripple.remove());
+
+      // JALANKAN ANIMASI BOUNCE SAAT DIKLIK
+      triggerDockBounce(btn);
+
+      goTo(btn.dataset.page);
+    });
   });
 
-  // ---- Dot nav removed (handled by dock) ----
+  // ---- Project cards — clickable + sound ----
+  document.querySelectorAll('.project-card[data-href]').forEach(card => {
+    card.addEventListener('click', () => {
+      playClick('card');
+      const url = card.dataset.href;
+      if (url) window.open(url, '_blank', 'noopener,noreferrer');
+    });
+  });
+
+  // ---- Generic click sound on interactive elements ----
+  const clickableSelectors = 'a[href], .role-tag, .social-row';
+  document.querySelectorAll(clickableSelectors).forEach(el => {
+    el.addEventListener('click', () => playClick('ui'));
+  });
 
   // ---- Initial state ----
   updateControls(currentPage);
@@ -101,22 +194,19 @@
     const dx = e.changedTouches[0].clientX - touchStartX;
     const dy = e.changedTouches[0].clientY - touchStartY;
 
-    // Only register horizontal swipes
     if (Math.abs(dx) < SWIPE_THRESHOLD || Math.abs(dy) > Math.abs(dx)) return;
 
     const currentIdx = PAGE_ORDER.indexOf(currentPage);
 
     if (dx < 0 && currentIdx < PAGE_ORDER.length - 1) {
-      // Swipe left → go right
       goTo(PAGE_ORDER[currentIdx + 1]);
     } else if (dx > 0 && currentIdx > 0) {
-      // Swipe right → go left
       goTo(PAGE_ORDER[currentIdx - 1]);
     }
   }, { passive: true });
 
   // ============================================================
-  //  Keyboard navigation (left / right arrow)
+  //  Keyboard navigation
   // ============================================================
   document.addEventListener('keydown', e => {
     const currentIdx = PAGE_ORDER.indexOf(currentPage);
@@ -136,7 +226,6 @@
   if (cursor && window.matchMedia('(pointer: fine)').matches) {
     let mouseX = 0, mouseY = 0;
     let curX = 0, curY = 0;
-    let raf;
 
     document.addEventListener('mousemove', e => {
       mouseX = e.clientX;
@@ -148,26 +237,19 @@
       curY += (mouseY - curY) * 0.16;
       cursor.style.left = curX + 'px';
       cursor.style.top  = curY + 'px';
-      raf = requestAnimationFrame(tick);
+      requestAnimationFrame(tick);
     }
     tick();
 
     const interactiveSelectors = 'a, button, .stat, .project-card, .social-row, .role-tag, .dock-item';
-
     document.querySelectorAll(interactiveSelectors).forEach(el => {
       el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
       el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
     });
 
-    // Re-bind after any potential dynamic changes (none here, but good practice)
-    document.addEventListener('mouseleave', () => {
-      cursor.style.opacity = '0';
-    });
-    document.addEventListener('mouseenter', () => {
-      cursor.style.opacity = '1';
-    });
+    document.addEventListener('mouseleave', () => { cursor.style.opacity = '0'; });
+    document.addEventListener('mouseenter', () => { cursor.style.opacity = '1'; });
   } else if (cursor) {
-    // Hide on touch devices
     cursor.style.display = 'none';
     document.body.style.cursor = 'auto';
   }
