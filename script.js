@@ -72,7 +72,7 @@
   }
 
   // Page order (left → right)
-  const PAGE_ORDER = ['blog', 'projects', 'profile', 'socials', 'gallery'];
+  const PAGE_ORDER = ['blog', 'gallery', 'projects', 'profile', 'socials', 'services', 'contact',];
 
   // ---- State ----
   let currentPage = 'profile';
@@ -644,11 +644,79 @@ document.addEventListener('DOMContentLoaded', () => {
       lightbox.style.display = 'none';
     }
 
+    // ==========================================
+    // FUNGSI LIGHTBOX UNTUK TESTIMONI SERVICES
+    // ==========================================
+    const testimonialBtns = document.querySelectorAll('.testimonial-btn');
+    if (testimonialBtns) {
+      testimonialBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation(); // Mencegah bentrok klik
+          if (typeof playClick === 'function') playClick('ui'); // Suara klik
+
+          const title = btn.getAttribute('data-title');
+          const desc = btn.getAttribute('data-desc');
+
+          // Bersihkan isi lightbox
+          if (lightboxContent) lightboxContent.innerHTML = '';
+
+          // Buat ikon quote sebagai visual
+          const iconDiv = document.createElement('div');
+          iconDiv.innerHTML = '<i class="fa-solid fa-quote-left" style="font-size: 5rem; color: var(--gray-4);"></i>';
+          iconDiv.style.height = '100%';
+          iconDiv.style.width = '100%';
+          iconDiv.style.display = 'flex';
+          iconDiv.style.alignItems = 'center';
+          iconDiv.style.justifyContent = 'center';
+          iconDiv.style.background = 'var(--gray-2)';
+          
+          if (lightboxContent) lightboxContent.appendChild(iconDiv);
+          if (lightboxCaption) lightboxCaption.textContent = title;
+          if (lightboxDesc) lightboxDesc.textContent = desc;
+
+          // Munculkan popup
+          if (lightbox) lightbox.style.display = 'flex';
+        });
+      });
+    }
+
     if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
     
     lightbox.addEventListener('click', (e) => {
       if (e.target === lightbox || e.target === document.querySelector('.lightbox-content-wrap')) {
         closeLightbox();
       }
+    });
+  }
+
+  // ==========================================
+  // FUNGSI LIGHTBOX UNTUK TESTIMONI SERVICES
+  // ==========================================
+  const testimonialBtns = document.querySelectorAll('.testimonial-btn');
+  if (testimonialBtns && lightbox) {
+    testimonialBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation(); // Mencegah klik menyebar
+        if (typeof playClick === 'function') playClick('ui');
+
+        const title = btn.getAttribute('data-title');
+        const desc = btn.getAttribute('data-desc');
+
+        if (lightboxContent) lightboxContent.innerHTML = '';
+        if (lightboxCaption) lightboxCaption.textContent = title;
+        if (lightboxDesc) lightboxDesc.textContent = desc;
+
+        // Visual ikon Quote
+        const iconDiv = document.createElement('div');
+        iconDiv.innerHTML = '<i class="fa-solid fa-quote-left" style="font-size: 4rem; color: var(--gray-4);"></i>';
+        iconDiv.style.width = '100%';
+        iconDiv.style.height = '100%';
+        iconDiv.style.display = 'flex';
+        iconDiv.style.alignItems = 'center';
+        iconDiv.style.justifyContent = 'center';
+        
+        if (lightboxContent) lightboxContent.appendChild(iconDiv);
+        lightbox.style.display = 'flex';
+      });
     });
   }

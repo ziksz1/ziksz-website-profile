@@ -48,10 +48,10 @@
       <span class="topbar-loc">&copy; 2026 ziksz_, Riau, Indonesia</span>
     </header>
 
-    <!-- PAGE VIEWPORT -->
-    <main class="viewport">
+  <!-- PAGE VIEWPORT -->
+  <main class="viewport">
 
-      <!-- ====== PAGE: BLOG ARTICLES (left 2) ====== -->
+      <!-- ====== PAGE: BLOG ARTICLES (left 3) ====== -->
       <section class="page" id="page-blog">
         <div class="page-inner">
           <h2 class="page-title">Blog Articles.</h2>
@@ -63,6 +63,55 @@
           </div>
         </div>
       </section>
+
+            <!-- ====== PAGE: GALLERY (right 2) ====== -->
+      <section class="page" id="page-gallery">
+  <div class="page-inner">
+    <h2 class="page-title">Gallery</h2>
+    <p class="page-eyebrow">Ini adalah kumpulan karya yang telah aku buat.</p>
+    
+    <div class="gallery-filter-nav">
+      <button class="gallery-filter-btn active" data-filter="all">All</button>
+      <button class="gallery-filter-btn" data-filter="photo">Photo</button>
+      <button class="gallery-filter-btn" data-filter="video">Video</button>
+    </div>
+    
+    <div class="gallery-grid">
+      
+  <div class="gallery-item type-photo fade-in">
+    <img src="assets/photo/ziksz-logo.png" alt="Ziksz Official Logo" data-desc="Ini adalah logo resmi dari aku yang mencerminkan identitas minimalis, modern, dan profesional untuk branding portofolio tahun 2026." loading="lazy">
+    <div class="gallery-item-overlay">
+      <span class="gallery-item-title">ziksz logo</span>
+    </div>
+  </div>
+
+  <div class="gallery-item type-video fade-in">
+    <video src="assets/video/video1.mp4" data-title="Nothing." data-desc="Nothing." preload="metadata"></video>
+    <div class="gallery-item-overlay">
+      <span class="gallery-item-title">Nothing.</span>
+    </div>
+  </div>
+  
+</div>
+
+<div id="gallery-lightbox" class="lightbox">
+  <span class="lightbox-close">&times;</span>
+  <div class="lightbox-content-wrap">
+    
+    <div class="lightbox-left">
+      <div class="lightbox-content"></div>
+    </div>
+    
+    <div class="lightbox-right">
+      <h3 class="lightbox-caption"></h3>
+      <p class="lightbox-description"></p>
+    </div>
+
+  </div>
+</div>
+  
+</div>
+</section>
 
       <!-- ====== PAGE: PROJECTS (left 1) ====== -->
       <section class="page" id="page-projects">
@@ -87,9 +136,21 @@
               </span>
             </article>
 
-            <article class="project-card coming-soon">
+            <article class="project-card" data-href="https://github.com/ziksz1/zpomodoro-timer" target="_blank" rel="noopener">
+              <div class="project-visit-btn" aria-hidden="true">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </div>
               <div class="project-meta">
                 <span class="project-num">02</span>
+                <span class="project-tag">Web App</span>
+              </div>
+              <h3 class="project-name">zPomodoro Timer</h3>
+              <p class="project-desc">Aplikasi Web Pomodoro Timer yang dirancang dengan estetika minimalis modern, profesional, dan interaktif.</p>
+            </article>
+
+            <article class="project-card coming-soon">
+              <div class="project-meta">
+                <span class="project-num">03</span>
                 <span class="project-tag">Soon</span>
               </div>
               <h3 class="project-name">Next Project</h3>
@@ -142,7 +203,7 @@
             </div>
             <div class="stat-divider"></div>
             <div class="stat">
-              <span class="stat-n">1</span>
+              <span class="stat-n">2</span>
               <span class="stat-l">Project</span>
             </div>
           </div>
@@ -151,6 +212,7 @@
           <div class="role-tags">
             <span class="role-tag">Student</span>
             <span class="role-tag">Basketball Player</span>
+            <span class="role-tag">Editor</span>
             <span class="role-tag">Tech Enthusiast</span>
             <span class="role-tag">AI Prompt Engineer</span>
           </div>
@@ -199,7 +261,7 @@
                 </div>
                 <div class="social-info">
                   <span class="social-platform">Discord Server</span>
-                  <span class="social-handle">Yuk join server discord aku. Aku ada disana.</span>
+                  <span class="social-handle">Yuk join server discord aku!</span>
                 </div>
               </div>
               <i class="fa-solid fa-arrow-up-right-from-square social-arrow"></i>
@@ -210,54 +272,50 @@
         </div>
       </section>
 
-      <!-- ====== PAGE: GALLERY (right 2) ====== -->
-      <section class="page" id="page-gallery">
-  <div class="page-inner">
-    <h2 class="page-title">Gallery.</h2>
-    <p class="page-eyebrow">My gallery</p>
-    
-    <div class="gallery-filter-nav">
-      <button class="gallery-filter-btn active" data-filter="all">All</button>
-      <button class="gallery-filter-btn" data-filter="photo">Photo</button>
-      <button class="gallery-filter-btn" data-filter="video">Video</button>
-    </div>
-    
-    <div class="gallery-grid">
-      
-  <div class="gallery-item type-photo fade-in">
-    <img src="assets/photo/ziksz-logo.png" alt="Ziksz Official Logo" data-desc="Ini adalah logo resmi dari aku yang mencerminkan identitas minimalis, modern, dan profesional untuk branding portofolio tahun 2026." loading="lazy">
-    <div class="gallery-item-overlay">
-      <span class="gallery-item-title">ziksz logo</span>
-    </div>
-  </div>
+      <!-- ====== PAGE: SERVICES (right 2) ====== -->
+      <section class="page" id="page-services">
+        <div class="page-inner">
+          <h2 class="page-title">Services.</h2>
+          <p class="page-eyebrow">Work With Me</p>
+          
+          <div class="services-list">
+            <div class="project-card" data-href="https://zuruh.id/s/dkMHPO">
+              
+              <div class="project-visit-btn" aria-hidden="true">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </div>
+              
+              <div class="project-meta">
+                <span class="project-tag">Available</span>
+              </div>
+              <h3 class="project-name">Poster Design</h3>
+              <p class="project-desc">Desain poster menarik dan profesional untuk keperluan promosi atau iklan.</p>
+            </div>
+          </div>
+        </div>
+      </section>
 
-  <div class="gallery-item type-video fade-in">
-    <video src="assets/video/ziks_pa_pa_pa1.mp4" data-title="Jj boom pa boom pa" data-desc="Jj boom pa boom pa." preload="metadata"></video>
-    <div class="gallery-item-overlay">
-      <span class="gallery-item-title">Jj boom pa boom pa</span>
-    </div>
-  </div>
-  
-</div>
-
-<div id="gallery-lightbox" class="lightbox">
-  <span class="lightbox-close">&times;</span>
-  <div class="lightbox-content-wrap">
-    
-    <div class="lightbox-left">
-      <div class="lightbox-content"></div>
-    </div>
-    
-    <div class="lightbox-right">
-      <h3 class="lightbox-caption"></h3>
-      <p class="lightbox-description"></p>
-    </div>
-
-  </div>
-</div>
-  
-</div>
-</section>
+      <!-- ====== PAGE: CONTACT (right 3) ====== -->
+      <section class="page" id="page-contact">
+        <div class="page-inner">
+          <h2 class="page-title">Contact.</h2>
+          <p class="page-eyebrow">Get In Touch</p>
+          
+          <div class="contact-container">
+            <p style="margin-bottom: 1.5rem; color: var(--gray-5); font-size: 0.9rem;">Punya proyek menarik atau ingin berkolaborasi? Kirim pesan ke emailku.</p>
+            
+            <form class="contact-form" action="mailto:contactziksz@gmail.com" method="POST" enctype="text/plain">
+              <div class="form-group">
+                <input type="text" id="name" name="name" required placeholder="Nama anda" />
+              </div>
+              <div class="form-group">
+                <textarea id="message" name="message" rows="4" required placeholder="Pesan Anda..."></textarea>
+              </div>
+              <button type="submit" class="submit-btn">Kirim Pesan <i class="fa-solid fa-paper-plane"></i></button>
+            </form>
+          </div>
+        </div>
+      </section>
 
     </main>
 
@@ -269,6 +327,14 @@
          <div class="dock-icon">
           <i class="fa-solid fa-pen-nib"></i></div>
          <span class="dock-label">Blog</span>
+         <span class="dock-dot"></span>
+        </button>
+
+        <button class="dock-item" data-page="gallery" aria-label="Gallery">
+         <div class="dock-icon">
+           <i class="fa-solid fa-images"></i>
+         </div>
+         <span class="dock-label">Gallery</span>
          <span class="dock-dot"></span>
         </button>
 
@@ -296,12 +362,20 @@
           <span class="dock-dot"></span>
         </button>
 
-        <button class="dock-item" data-page="gallery" aria-label="Gallery">
-         <div class="dock-icon">
-           <i class="fa-solid fa-images"></i>
-         </div>
-         <span class="dock-label">Gallery</span>
-         <span class="dock-dot"></span>
+        <button class="dock-item" data-page="services" aria-label="Services">
+          <div class="dock-icon">
+            <i class="fa-solid fa-briefcase"></i>
+          </div>
+          <span class="dock-label">Services</span>
+          <span class="dock-dot"></span>
+        </button>
+
+        <button class="dock-item" data-page="contact" aria-label="Contact">
+          <div class="dock-icon">
+            <i class="fa-solid fa-envelope"></i>
+          </div>
+          <span class="dock-label">Contact</span>
+          <span class="dock-dot"></span>
         </button>
 
       </nav>

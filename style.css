@@ -711,13 +711,14 @@ body {
 .dock {
   display: flex;
   align-items: flex-end;
-  gap: 0.5rem;
+  gap: 0.2rem; /* Jarak antar tombol dirapatkan (sebelumnya 0.5rem) */
   background: rgba(20, 20, 20, 0.92);
   border: 1px solid var(--gray-3);
   border-radius: 20px;
-  padding: 0.6rem 1.1rem 0.65rem;
+  padding: 0.6rem 0.8rem 0.65rem; /* Padding kiri-kanan sedikit dikurangi */
   pointer-events: auto;
   overflow: visible;
+  max-width: 95vw; /* Mencegah dock melewati batas layar (maksimal 95% lebar layar) */
   /* floating shadow */
   box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.7),
@@ -734,9 +735,10 @@ body {
   background: none;
   border: none;
   cursor: none;
-  padding: 0 0.6rem;
+  padding: 0 0.2rem; /* Padding kiri-kanan tombol sangat dirapatkan ala MacBook */
   transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
   overflow: visible;
+  flex-shrink: 1; /* Mengizinkan tombol sedikit mengecil menyesuaikan layar */
 }
 
 .dock-item:hover {
@@ -1687,4 +1689,105 @@ body.loaded .grid-bg {
   text-overflow: ellipsis;
   width: 100%;
   letter-spacing: 0.01em;
+}
+
+/* ============================================================
+   SERVICES & CONTACT
+============================================================ */
+.service-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.icon-btn {
+  background: var(--gray-3);
+  color: var(--white);
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all var(--transition);
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+
+.icon-btn:hover {
+  background: var(--white);
+  color: var(--black);
+  transform: translateY(-3px);
+}
+
+.contact-container {
+  background: var(--gray-1);
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--gray-3);
+}
+
+.form-group input, .form-group textarea {
+  width: 100%;
+  background: var(--gray-2);
+  border: 1px solid var(--gray-3);
+  color: var(--white);
+  padding: 1rem;
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  margin-bottom: 1rem;
+  outline: none;
+}
+
+.submit-btn {
+  background: var(--white);
+  color: var(--black);
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.submit-btn:hover {
+  transform: scale(1.05);
+}
+
+/* ============================================================
+   REVISI: ANIMASI HOVER TOMBOL OPEN SITE (LEBIH KECIL & RAPI)
+============================================================ */
+
+/* Ukuran disesuaikan menjadi lebih kecil (36px) & tata letak diatur agar presisi */
+.project-hover-icon {
+  position: absolute;
+  top: 1.2rem;    /* Diatur di pojok kanan atas agar sejajar secara estetis */
+  right: 1.2rem;
+  background: var(--gray-3);
+  color: var(--white);
+  width: 36px;    /* Diperkecil dari 45px */
+  height: 36px;   /* Diperkecil dari 45px */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem; /* Ukuran ikon panah diperkecil agar pas */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 5;
+  
+  /* Animasi Pop-up halus dari atas ke bawah */
+  opacity: 0;
+  transform: scale(0.6) translateY(-10px);
+  transition: all var(--transition);
+}
+
+/* Interaksi saat card di-hover / disentuh */
+.project-card:hover .project-hover-icon {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  background: var(--white);
+  color: var(--black);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
