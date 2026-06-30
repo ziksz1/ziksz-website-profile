@@ -1,5 +1,5 @@
 /* ============================================================
-   ZIKS WEBSITE — script.js
+   ziksz website — script.js
    Handles: page navigation, cursor, swipe gestures, click sound
 ============================================================ */
 
@@ -720,3 +720,28 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
+
+// ============================================================
+//  TAMBAHAN SFX UNTUK SOCIAL LINKS & CONTACT BUTTON
+// ============================================================
+const extraButtons = document.querySelectorAll('.social-row, .submit-btn');
+
+extraButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    // Memanggil fungsi klik dengan tipe 'ui' (short bright tick)
+    if (typeof playClick === 'function') {
+      playClick('ui'); 
+    }
+    function closeLightbox() {
+    // 🔊 Tambahkan baris ini agar berbunyi saat ditutup
+    if (typeof playClick === 'function') playClick('ui');
+
+    const activeVideo = lightboxContent.querySelector('video');
+    if (activeVideo) {
+      activeVideo.pause();
+      activeVideo.src = ""; // Force stop video
+    }
+    lightbox.style.display = 'none';
+  }
+  });
+});
