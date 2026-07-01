@@ -1812,3 +1812,38 @@ body.loaded .grid-bg {
   color: var(--black);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
+
+/* ============================================================
+   FIX 1: CENTER CONTENT FOR GALLERY, PROJECTS, SOCIALS
+============================================================ */
+#page-projects .page-inner,
+#page-gallery .page-inner,
+#page-socials .page-inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100%;
+}
+
+/* ============================================================
+   FIX 2: LIGHTBOX CLOSE BUTTON & SCROLL FEATURE
+============================================================ */
+/* 1. Tambahkan fitur scroll pada background Lightbox utama */
+.lightbox {
+  overflow-y: auto !important; /* Memunculkan scrollbar jika konten melebihi layar */
+  padding: 2rem 1rem !important; 
+  align-items: flex-start !important; /* Mencegah bagian atas terpotong saat layar di-scroll */
+}
+
+/* 2. Pastikan kotak konten tetap di tengah jika layar besar, tapi fleksibel jika layar kecil */
+.lightbox-content-wrap {
+  margin: auto !important; 
+}
+
+/* 3. Perbaiki posisi tombol close agar tidak terlalu jauh & selalu terlihat */
+.lightbox-close {
+  position: fixed !important; /* Tetap melayang di sudut layar walau konten di-scroll */
+  top: 15px !important;       /* Jarak dari atas didekatkan */
+  right: 20px !important;     /* Jarak dari kanan didekatkan */
+  z-index: 10000 !important;  /* Memastikan tombol tidak tertutup oleh teks atau media */
+}
