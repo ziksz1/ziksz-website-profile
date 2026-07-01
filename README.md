@@ -6,6 +6,6 @@
 
 <p align="center">
   <a href="https://ziksz.vercel.app/" target="_blank">
-    <img src="https://img.shields.io/badge/Visit%20My%20Website-ziksz.vercel.app-blue?style=for-the-badge&logo=vercel&logoColor=white" alt="Website Badge" />
+    <img src="https://img.shields.io/badge/Visit%20My%20Website-ziksz.vercel.app-lightgray?style=for-the-badge&logo=vercel&logoColor=white" alt="Website Badge" />
   </a>
 </p>
